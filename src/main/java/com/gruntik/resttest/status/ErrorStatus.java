@@ -1,4 +1,4 @@
-package com.gruntik.resttest;
+package com.gruntik.resttest.status;
 
 public enum ErrorStatus {
     OK(0, "OK"),
