@@ -1,6 +1,7 @@
 package com.gruntik.resttest.controller;
 
 import com.gruntik.resttest.ErrorStatus;
+import com.gruntik.resttest.ErrorStatusCombiner;
 import com.gruntik.resttest.dao.StoreRepository;
 import com.gruntik.resttest.entity.Store;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,25 +35,19 @@ public class MainController {
 
     @PostMapping("/add")
     public Map<Object, Object> add(@RequestBody Store store) {
+
         System.out.println(storeRepository.findAll());
-        System.out.println(store);
 
         if (store.getName() == null) {
-            messages.put("code", ErrorStatus.NO_NAME.getValue());
-            messages.put("description", ErrorStatus.NO_NAME.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.NO_NAME);
         }
 
         if (store.getValue() == null) {
-            messages.put("code", ErrorStatus.NO_VALUE.getValue());
-            messages.put("description", ErrorStatus.NO_VALUE.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.NO_VALUE);
         }
 
         if (storeRepository.existsByName(store.getName())) {
-            messages.put("code", ErrorStatus.ALREADY_EXISTS.getValue());
-            messages.put("description", ErrorStatus.ALREADY_EXISTS.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.ALREADY_EXISTS);
         }
         storeRepository.save(store);
 
@@ -65,15 +61,11 @@ public class MainController {
     public Map<Object, Object> remove(@RequestBody Map<String, String> data) {
 
         if (data.size() == 0) {
-            messages.put("code", ErrorStatus.NO_DATA.getValue());
-            messages.put("description", ErrorStatus.NO_DATA.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.NO_DATA);
         }
 
         if (storeRepository.deleteByName(data.get("name")) == 0) {
-            messages.put("code", ErrorStatus.NOTHING_TO_DELETE.getValue());
-            messages.put("description", ErrorStatus.NOTHING_TO_DELETE.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.NOTHING_TO_DELETE);
         }
 
         messages.put("code", ErrorStatus.OK.getValue());
@@ -89,37 +81,27 @@ public class MainController {
         int second;
 
         if (data.size() == 0) {
-            messages.put("code", ErrorStatus.NO_DATA.getValue());
-            messages.put("description", ErrorStatus.NO_DATA.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.NO_DATA);
         }
 
         if (!data.containsKey("first")) {
-            messages.put("code", ErrorStatus.NO_FIRST_NUMBER.getValue());
-            messages.put("description", ErrorStatus.NO_FIRST_NUMBER.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.NO_FIRST_NUMBER);
         }
 
         if (!data.containsKey("second")) {
-            messages.put("code", ErrorStatus.NO_SECOND_NUMBER.getValue());
-            messages.put("description", ErrorStatus.NO_SECOND_NUMBER.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.NO_SECOND_NUMBER);
         }
 
         try {
             first = Integer.parseInt(data.get("first"));
         } catch (Exception e) {
-            messages.put("code", ErrorStatus.NOT_NUMBER_FIRST.getValue());
-            messages.put("description", ErrorStatus.NOT_NUMBER_FIRST.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.NOT_NUMBER_FIRST);
         }
 
         try {
             second = Integer.parseInt(data.get("second"));
         } catch (Exception e) {
-            messages.put("code", ErrorStatus.NOT_NUMBER_SECOND.getValue());
-            messages.put("description", ErrorStatus.NOT_NUMBER_SECOND.getDescription());
-            return messages;
+            return ErrorStatusCombiner.combineErrors(ErrorStatus.NOT_NUMBER_SECOND);
         }
 
         Integer sum = first + second;

@@ -13,13 +13,12 @@ public enum ErrorStatus {
     NOT_NUMBER_FIRST(9, "THE FIRST IS NOT A NUMBER"),
     NOT_NUMBER_SECOND(10, "THE SECOND IS NOT A NUMBER");
 
-
     private final int value;
     private final String description;
 
-    ErrorStatus(int value, String reasonPhrase) {
+    ErrorStatus(int value, String description) {
         this.value = value;
-        this.description = reasonPhrase;
+        this.description = description;
     }
 
     public int getValue() {
