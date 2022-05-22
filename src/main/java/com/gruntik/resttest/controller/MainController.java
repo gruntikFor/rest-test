@@ -31,11 +31,6 @@ public class MainController {
         this.customValidator = customValidator;
     }
 
-    @GetMapping("/")
-    public List<Store> findAll() {
-        return storeRepository.findAll();
-    }
-
     @PostMapping("/add")
     public Map<Object, Object> add(@RequestBody Store store) {
         Map<Object, Object> response = customValidator.validAdd(store);
@@ -43,7 +38,6 @@ public class MainController {
         if (response.get("code").equals(ErrorStatus.OK)) {
             storeRepository.save(store);
         }
-
         return response;
     }
 
@@ -68,7 +62,9 @@ public class MainController {
             sum = Integer.parseInt(data.get("first")) + Integer.parseInt(data.get("second"));
         }
 
-        response.put("sum", sum);
+        if (sum != null) {
+            response.put("sum", sum);
+        }
         response.putAll(validData);
         return response;
     }

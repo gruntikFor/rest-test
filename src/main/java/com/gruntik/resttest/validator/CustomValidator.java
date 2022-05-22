@@ -57,7 +57,7 @@ public class CustomValidator {
         }
 
         if (!data.containsKey("second")) {
-            combineErrors(ErrorStatus.NO_SECOND_NUMBER);
+            return combineErrors(ErrorStatus.NO_SECOND_NUMBER);
         }
 
         try {
