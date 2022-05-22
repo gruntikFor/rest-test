@@ -3,16 +3,13 @@ package com.gruntik.resttest.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "storef")
+@Table(name = "store")
 public class Store {
 
     @Id
     private String name;
-
-    @NotNull(message = "Value should be not null")
     private Integer value;
 
     public Store() {

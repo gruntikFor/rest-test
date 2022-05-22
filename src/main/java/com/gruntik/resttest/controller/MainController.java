@@ -1,8 +1,8 @@
 package com.gruntik.resttest.controller;
 
-import com.gruntik.resttest.status.ErrorStatus;
 import com.gruntik.resttest.dao.StoreRepository;
 import com.gruntik.resttest.entity.Store;
+import com.gruntik.resttest.status.ErrorStatus;
 import com.gruntik.resttest.validator.CustomValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
