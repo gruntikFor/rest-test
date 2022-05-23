@@ -6,6 +6,9 @@
 2. cd build
 3. java -jar sum_service.jar
 
+### How to tests?
+1. gradle test
+
 ### Entry points
 
 1. /add
