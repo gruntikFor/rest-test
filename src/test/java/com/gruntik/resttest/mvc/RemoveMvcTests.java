@@ -2,7 +2,7 @@ package com.gruntik.resttest.mvc;
 
 import com.gruntik.resttest.dao.StoreRepository;
 import com.gruntik.resttest.entity.Store;
-import com.gruntik.resttest.status.ErrorStatus;
+import com.gruntik.resttest.status.ResponseStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -40,8 +40,8 @@ public class RemoveMvcTests {
                         .content(STRING_OK)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.OK.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.OK.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.OK.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.OK.getDescription())));
     }
 
     @Test
@@ -50,8 +50,8 @@ public class RemoveMvcTests {
                         .content(STRING_NO_DATA)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.NO_DATA.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.NO_DATA.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.NO_DATA.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.NO_DATA.getDescription())));
     }
 
     @Test
@@ -62,8 +62,8 @@ public class RemoveMvcTests {
                         .content(STRING_OK)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.NOTHING_TO_DELETE.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.NOTHING_TO_DELETE.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.NOTHING_TO_DELETE.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.NOTHING_TO_DELETE.getDescription())));
     }
 
 }

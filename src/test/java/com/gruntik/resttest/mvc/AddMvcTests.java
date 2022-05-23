@@ -2,15 +2,13 @@ package com.gruntik.resttest.mvc;
 
 import com.gruntik.resttest.dao.StoreRepository;
 import com.gruntik.resttest.entity.Store;
-import com.gruntik.resttest.status.ErrorStatus;
+import com.gruntik.resttest.status.ResponseStatus;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.is;
@@ -39,8 +37,8 @@ public class AddMvcTests {
                         .content(STRING_OK)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.OK.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.OK.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.OK.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.OK.getDescription())));
     }
 
     @Test
@@ -52,8 +50,8 @@ public class AddMvcTests {
                         .content(STRING_OK)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.ALREADY_EXISTS.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.ALREADY_EXISTS.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.ALREADY_EXISTS.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.ALREADY_EXISTS.getDescription())));
     }
 
     @Test
@@ -62,8 +60,8 @@ public class AddMvcTests {
                         .content(STRING_NO_NAME)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.NO_NAME.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.NO_NAME.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.NO_NAME.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.NO_NAME.getDescription())));
     }
 
     @Test
@@ -72,8 +70,8 @@ public class AddMvcTests {
                         .content(STRING_NO_VALUE)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.NO_VALUE.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.NO_VALUE.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.NO_VALUE.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.NO_VALUE.getDescription())));
     }
 
 

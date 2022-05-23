@@ -1,6 +1,6 @@
 package com.gruntik.resttest.mvc;
 
-import com.gruntik.resttest.status.ErrorStatus;
+import com.gruntik.resttest.status.ResponseStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -37,8 +37,8 @@ public class SumMvcTests {
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(jsonPath("$.sum", is(4)))
-                .andExpect(jsonPath("$.code", is(ErrorStatus.OK.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.OK.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.OK.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.OK.getDescription())));
     }
 
     @Test
@@ -47,8 +47,8 @@ public class SumMvcTests {
                         .content(STRING_NO_DATA)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.NO_DATA.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.NO_DATA.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.NO_DATA.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.NO_DATA.getDescription())));
     }
 
     @Test
@@ -57,8 +57,8 @@ public class SumMvcTests {
                         .content(STRING_NO_FIRST_NUMBER)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.NO_FIRST_NUMBER.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.NO_FIRST_NUMBER.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.NO_FIRST_NUMBER.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.NO_FIRST_NUMBER.getDescription())));
     }
 
     @Test
@@ -67,8 +67,8 @@ public class SumMvcTests {
                         .content(STRING_NO_SECOND_NUMBER)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.NO_SECOND_NUMBER.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.NO_SECOND_NUMBER.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.NO_SECOND_NUMBER.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.NO_SECOND_NUMBER.getDescription())));
     }
 
     @Test
@@ -77,8 +77,8 @@ public class SumMvcTests {
                         .content(STRING_NOT_NUMBER_FIRST)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.NOT_NUMBER_FIRST.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.NOT_NUMBER_FIRST.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.NOT_NUMBER_FIRST.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.NOT_NUMBER_FIRST.getDescription())));
     }
 
     @Test
@@ -87,8 +87,8 @@ public class SumMvcTests {
                         .content(STRING_NOT_NUMBER_SECOND)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$.code", is(ErrorStatus.NOT_NUMBER_SECOND.getValue())))
-                .andExpect(jsonPath("$.description", is(ErrorStatus.NOT_NUMBER_SECOND.getDescription())));
+                .andExpect(jsonPath("$.code", is(ResponseStatus.NOT_NUMBER_SECOND.getValue())))
+                .andExpect(jsonPath("$.description", is(ResponseStatus.NOT_NUMBER_SECOND.getDescription())));
     }
 
 }

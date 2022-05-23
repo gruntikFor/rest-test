@@ -1,6 +1,6 @@
 package com.gruntik.resttest.status;
 
-public enum ErrorStatus {
+public enum ResponseStatus {
     OK(0, "OK"),
     NO_NAME(1, "NAME ISN'T PRESENT"),
     NO_VALUE(2, "VALUE ISN'T PRESENT"),
@@ -15,7 +15,7 @@ public enum ErrorStatus {
     private final int value;
     private final String description;
 
-    ErrorStatus(int value, String description) {
+    ResponseStatus(int value, String description) {
         this.value = value;
         this.description = description;
     }
