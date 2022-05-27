@@ -1,7 +1,7 @@
 package com.gruntik.resttest;
 
 import com.gruntik.resttest.entity.Store;
-import com.gruntik.resttest.service.StoreServiceImpl;
+import com.gruntik.resttest.repository.StoreRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 class RestTestApplicationTests {
 
     @Autowired
-    StoreServiceImpl storeService;
+    StoreRepository storeService;
 
     @Test
     void save() {

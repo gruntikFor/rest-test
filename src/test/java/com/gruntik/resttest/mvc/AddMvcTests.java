@@ -1,7 +1,7 @@
 package com.gruntik.resttest.mvc;
 
 import com.gruntik.resttest.entity.Store;
-import com.gruntik.resttest.service.StoreServiceImpl;
+import com.gruntik.resttest.repository.StoreRepository;
 import com.gruntik.resttest.status.ResponseStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class AddMvcTests {
     private MockMvc mvc;
 
     @Autowired
-    StoreServiceImpl storeService;
+    StoreRepository storeService;
 
     final String STRING_OK = "{\"name\":\"igor\",\"value\":\"23\"}";
     final String STRING_NO_NAME = "{\"value\":\"23\"}";

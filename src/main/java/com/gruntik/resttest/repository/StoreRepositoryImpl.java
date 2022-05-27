@@ -1,4 +1,4 @@
-package com.gruntik.resttest.service;
+package com.gruntik.resttest.repository;
 
 import com.gruntik.resttest.entity.Store;
 import com.gruntik.resttest.util.HibernateUtil;
@@ -16,10 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class StoreServiceImpl {
+public class StoreRepositoryImpl implements StoreRepository {
 
     private static final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
+    @Override
     public void save(Store store) {
         Transaction tx = null;
 
@@ -33,6 +34,7 @@ public class StoreServiceImpl {
         }
     }
 
+    @Override
     public List<Store> findAll() {
         Transaction tx = null;
         List<Store> stores = new ArrayList<>();
@@ -54,6 +56,7 @@ public class StoreServiceImpl {
         return stores;
     }
 
+    @Override
     public boolean existsByName(String name) {
         Transaction tx = null;
         boolean returnValue = false;
@@ -80,6 +83,7 @@ public class StoreServiceImpl {
         return returnValue;
     }
 
+    @Override
     public int deleteByName(String name) {
         Transaction tx = null;
         int result = 0;
@@ -98,6 +102,7 @@ public class StoreServiceImpl {
         return result;
     }
 
+    @Override
     public void deleteAll() {
         Transaction tx = null;
         try (Session session = sessionFactory.openSession()) {

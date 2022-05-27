@@ -1,7 +1,7 @@
 package com.gruntik.resttest.validator;
 
 import com.gruntik.resttest.entity.Store;
-import com.gruntik.resttest.service.StoreServiceImpl;
+import com.gruntik.resttest.repository.StoreRepositoryImpl;
 import com.gruntik.resttest.status.ResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +12,10 @@ import java.util.Map;
 @Service
 public class CustomValidator {
 
-    StoreServiceImpl storeService;
+    StoreRepositoryImpl storeService;
 
     @Autowired
-    public CustomValidator(StoreServiceImpl storeService) {
+    public CustomValidator(StoreRepositoryImpl storeService) {
         this.storeService = storeService;
     }
 
