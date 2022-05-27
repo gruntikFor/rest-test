@@ -1,6 +1,7 @@
 package com.gruntik.resttest.controller;
 
 import com.gruntik.resttest.entity.Store;
+import com.gruntik.resttest.service.MainService;
 import com.gruntik.resttest.service.StoreService;
 import com.gruntik.resttest.status.ResponseStatus;
 import com.gruntik.resttest.validator.CustomValidator;
@@ -20,15 +21,13 @@ public class MainController {
 
     CustomValidator customValidator;
     StoreService storeService;
+    MainService mainService;
 
     @Autowired
-    public void setCustomValidator(CustomValidator customValidator) {
+    public MainController(CustomValidator customValidator, StoreService storeService, MainService mainService) {
         this.customValidator = customValidator;
-    }
-
-    @Autowired
-    public void setStoreService(StoreService storeService) {
         this.storeService = storeService;
+        this.mainService = mainService;
     }
 
     @GetMapping("/")
@@ -38,41 +37,18 @@ public class MainController {
 
     @PostMapping("/add")
     public Map<Object, Object> add(@RequestBody Store store) {
-        Map<Object, Object> response = customValidator.validAdd(store);
-
-        if (response.get("code").equals(ResponseStatus.OK.getValue())) {
-            storeService.save(store);
-        }
-
-        return response;
+        return mainService.save(store);
     }
 
     @Transactional
     @PostMapping("/remove")
     public Map<Object, Object> remove(@RequestBody Map<String, String> data) {
-        Map<Object, Object> response = customValidator.validRemove(data);
-
-        if (response.get("code").equals(ResponseStatus.OK.getValue())) {
-            storeService.deleteByName(data.get("name"));
-        }
-        return response;
+        return mainService.remove(data);
     }
 
     @PostMapping("/sum")
     public Map<Object, Object> sum(@RequestBody Map<String, String> data) {
-        Map<Object, Object> validData = customValidator.validSum(data);
-        Map<Object, Object> response = new LinkedHashMap<>();
-        Integer sum = null;
-
-        if (validData.get("code").equals(ResponseStatus.OK.getValue())) {
-            sum = Integer.parseInt(data.get("first")) + Integer.parseInt(data.get("second"));
-        }
-
-        if (sum != null) {
-            response.put("sum", sum);
-        }
-        response.putAll(validData);
-        return response;
+        return mainService.sum(data);
     }
 
 }
