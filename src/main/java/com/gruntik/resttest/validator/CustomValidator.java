@@ -1,5 +1,6 @@
 package com.gruntik.resttest.validator;
 
+import com.gruntik.resttest.service.StoreService;
 import com.gruntik.resttest.status.ResponseStatus;
 import com.gruntik.resttest.dao.StoreRepository;
 import com.gruntik.resttest.entity.Store;
@@ -19,6 +20,9 @@ public class CustomValidator {
         this.storeRepository = storeRepository;
     }
 
+    @Autowired
+    StoreService storeService;
+
     public Map<Object, Object> validAdd(Store store) {
         if (store.getName() == null) {
             return combineErrors(ResponseStatus.NO_NAME);
@@ -28,7 +32,7 @@ public class CustomValidator {
             return combineErrors(ResponseStatus.NO_VALUE);
         }
 
-        if (storeRepository.existsByName(store.getName())) {
+        if (storeService.existsByName(store.getName())) {
             return combineErrors(ResponseStatus.ALREADY_EXISTS);
         }
 
