@@ -14,29 +14,29 @@ import org.springframework.transaction.annotation.Transactional;
 class RestTestApplicationTests {
 
     @Autowired
-    StoreRepository storeService;
+    StoreRepository storeRepository;
 
     @Test
     void save() {
-        storeService.save(new Store("igor", 23));
-        Assertions.assertTrue(storeService.existsByName("igor"));
+        storeRepository.save(new Store("igor", 23));
+        Assertions.assertTrue(storeRepository.existsByName("igor"));
     }
 
     @Test
     void existsByName() {
-        storeService.deleteAll();
-        storeService.save(new Store("igor", 23));
+        storeRepository.deleteAll();
+        storeRepository.save(new Store("igor", 23));
 
-        Assertions.assertTrue(storeService.existsByName("igor"));
+        Assertions.assertTrue(storeRepository.existsByName("igor"));
     }
 
     @Transactional
     @Test
     void deleteByName() {
-        storeService.deleteAll();
-        storeService.save(new Store("igor", 23));
+        storeRepository.deleteAll();
+        storeRepository.save(new Store("igor", 23));
 
-        Assertions.assertEquals(1, storeService.deleteByName("igor"));
+        Assertions.assertEquals(1, storeRepository.deleteByName("igor"));
     }
 
 }

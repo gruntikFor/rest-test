@@ -26,15 +26,15 @@ public class RemoveMvcTests {
     private MockMvc mvc;
 
     @Autowired
-    StoreRepository storeService;
+    StoreRepository storeRepository;
 
     final String STRING_OK = "{\"name\":\"igor\"}";
     final String STRING_NO_DATA = "{}";
 
     @Test
     public void removeOK() throws Exception {
-        storeService.deleteAll();
-        storeService.save(new Store("igor", 23));
+        storeRepository.deleteAll();
+        storeRepository.save(new Store("igor", 23));
 
         mvc.perform(post("/remove")
                         .content(STRING_OK)
@@ -56,7 +56,7 @@ public class RemoveMvcTests {
 
     @Test
     public void removeNothingToDelete() throws Exception {
-        storeService.deleteAll();
+        storeRepository.deleteAll();
 
         mvc.perform(post("/remove")
                         .content(STRING_OK)

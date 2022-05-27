@@ -15,19 +15,19 @@ import java.util.Map;
 public class MainServiceImpl implements MainService {
 
     CustomValidator customValidator;
-    StoreRepository storeService;
+    StoreRepository storeRepository;
 
     @Autowired
-    public MainServiceImpl(CustomValidator customValidator, StoreRepositoryImpl storeService) {
+    public MainServiceImpl(CustomValidator customValidator, StoreRepositoryImpl storeRepository) {
         this.customValidator = customValidator;
-        this.storeService = storeService;
+        this.storeRepository = storeRepository;
     }
 
     public Map<Object, Object> save(Store store) {
         Map<Object, Object> response = customValidator.validAdd(store);
 
         if (response.get("code").equals(ResponseStatus.OK.getValue())) {
-            storeService.save(store);
+            storeRepository.save(store);
         }
         return response;
     }
@@ -36,7 +36,7 @@ public class MainServiceImpl implements MainService {
         Map<Object, Object> response = customValidator.validRemove(data);
 
         if (response.get("code").equals(ResponseStatus.OK.getValue())) {
-            int result = storeService.deleteByName(data.get("name"));
+            int result = storeRepository.deleteByName(data.get("name"));
             if (result < 1) {
                 response = CustomValidator.combineErrors(ResponseStatus.DELETE_ERROR);
             }

@@ -24,7 +24,7 @@ public class AddMvcTests {
     private MockMvc mvc;
 
     @Autowired
-    StoreRepository storeService;
+    StoreRepository storeRepository;
 
     final String STRING_OK = "{\"name\":\"igor\",\"value\":\"23\"}";
     final String STRING_NO_NAME = "{\"value\":\"23\"}";
@@ -32,7 +32,7 @@ public class AddMvcTests {
 
     @Test
     public void addOK() throws Exception {
-        storeService.deleteAll();
+        storeRepository.deleteAll();
 
         mvc.perform(post("/add")
                         .content(STRING_OK)
@@ -44,8 +44,8 @@ public class AddMvcTests {
 
     @Test
     public void addAlreadyExists() throws Exception {
-        storeService.deleteAll();
-        storeService.save(new Store("igor", 23));
+        storeRepository.deleteAll();
+        storeRepository.save(new Store("igor", 23));
 
         mvc.perform(post("/add")
                         .content(STRING_OK)

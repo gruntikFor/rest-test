@@ -12,11 +12,11 @@ import java.util.Map;
 @Service
 public class CustomValidator {
 
-    StoreRepositoryImpl storeService;
+    StoreRepositoryImpl storeRepository;
 
     @Autowired
-    public CustomValidator(StoreRepositoryImpl storeService) {
-        this.storeService = storeService;
+    public CustomValidator(StoreRepositoryImpl storeRepository) {
+        this.storeRepository = storeRepository;
     }
 
     public Map<Object, Object> validAdd(Store store) {
@@ -28,7 +28,7 @@ public class CustomValidator {
             return combineErrors(ResponseStatus.NO_VALUE);
         }
 
-        if (storeService.existsByName(store.getName())) {
+        if (storeRepository.existsByName(store.getName())) {
             return combineErrors(ResponseStatus.ALREADY_EXISTS);
         }
 
@@ -40,7 +40,7 @@ public class CustomValidator {
             return combineErrors(ResponseStatus.NO_DATA);
         }
 
-        if (!storeService.existsByName(data.get("name"))) {
+        if (!storeRepository.existsByName(data.get("name"))) {
             return combineErrors(ResponseStatus.NOTHING_TO_DELETE);
         }
 
