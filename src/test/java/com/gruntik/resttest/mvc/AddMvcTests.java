@@ -1,7 +1,7 @@
 package com.gruntik.resttest.mvc;
 
-import com.gruntik.resttest.dao.StoreRepository;
 import com.gruntik.resttest.entity.Store;
+import com.gruntik.resttest.service.StoreServiceImpl;
 import com.gruntik.resttest.status.ResponseStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class AddMvcTests {
     private MockMvc mvc;
 
     @Autowired
-    StoreRepository storeRepository;
+    StoreServiceImpl storeService;
 
     final String STRING_OK = "{\"name\":\"igor\",\"value\":\"23\"}";
     final String STRING_NO_NAME = "{\"value\":\"23\"}";
@@ -32,7 +32,8 @@ public class AddMvcTests {
 
     @Test
     public void addOK() throws Exception {
-        storeRepository.deleteAll();
+        storeService.deleteAll();
+
         mvc.perform(post("/add")
                         .content(STRING_OK)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
@@ -43,8 +44,8 @@ public class AddMvcTests {
 
     @Test
     public void addAlreadyExists() throws Exception {
-        storeRepository.deleteAll();
-        storeRepository.save(new Store("igor", 23));
+        storeService.deleteAll();
+        storeService.save(new Store("igor", 23));
 
         mvc.perform(post("/add")
                         .content(STRING_OK)

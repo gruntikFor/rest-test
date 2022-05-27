@@ -1,7 +1,7 @@
 package com.gruntik.resttest;
 
-import com.gruntik.resttest.dao.StoreRepository;
 import com.gruntik.resttest.entity.Store;
+import com.gruntik.resttest.service.StoreServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,29 +14,29 @@ import org.springframework.transaction.annotation.Transactional;
 class RestTestApplicationTests {
 
     @Autowired
-    StoreRepository storeRepository;
+    StoreServiceImpl storeService;
 
     @Test
     void save() {
-        storeRepository.save(new Store("igor", 23));
-        Assertions.assertTrue(storeRepository.existsByName("igor"));
+        storeService.save(new Store("igor", 23));
+        Assertions.assertTrue(storeService.existsByName("igor"));
     }
 
     @Test
     void existsByName() {
-        storeRepository.deleteAll();
-        storeRepository.save(new Store("igor", 23));
+        storeService.deleteAll();
+        storeService.save(new Store("igor", 23));
 
-        Assertions.assertTrue(storeRepository.existsByName("igor"));
+        Assertions.assertTrue(storeService.existsByName("igor"));
     }
 
     @Transactional
     @Test
     void deleteByName() {
-        storeRepository.deleteAll();
-        storeRepository.save(new Store("igor", 23));
+        storeService.deleteAll();
+        storeService.save(new Store("igor", 23));
 
-        Assertions.assertEquals(1, storeRepository.deleteByName("igor"));
+        Assertions.assertEquals(1, storeService.deleteByName("igor"));
     }
 
 }

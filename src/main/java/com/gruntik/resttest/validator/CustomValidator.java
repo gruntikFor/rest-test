@@ -1,9 +1,8 @@
 package com.gruntik.resttest.validator;
 
-import com.gruntik.resttest.service.StoreService;
-import com.gruntik.resttest.status.ResponseStatus;
-import com.gruntik.resttest.dao.StoreRepository;
 import com.gruntik.resttest.entity.Store;
+import com.gruntik.resttest.service.StoreServiceImpl;
+import com.gruntik.resttest.status.ResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +12,12 @@ import java.util.Map;
 @Service
 public class CustomValidator {
 
-    StoreRepository storeRepository;
+    StoreServiceImpl storeService;
 
     @Autowired
-    public void setStoreRepository(StoreRepository storeRepository) {
-        this.storeRepository = storeRepository;
+    public CustomValidator(StoreServiceImpl storeService) {
+        this.storeService = storeService;
     }
-
-    @Autowired
-    StoreService storeService;
 
     public Map<Object, Object> validAdd(Store store) {
         if (store.getName() == null) {
@@ -44,7 +40,7 @@ public class CustomValidator {
             return combineErrors(ResponseStatus.NO_DATA);
         }
 
-        if (!storeRepository.existsByName(data.get("name"))) {
+        if (!storeService.existsByName(data.get("name"))) {
             return combineErrors(ResponseStatus.NOTHING_TO_DELETE);
         }
 

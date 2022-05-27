@@ -1,7 +1,7 @@
 package com.gruntik.resttest.mvc;
 
-import com.gruntik.resttest.dao.StoreRepository;
 import com.gruntik.resttest.entity.Store;
+import com.gruntik.resttest.service.StoreServiceImpl;
 import com.gruntik.resttest.status.ResponseStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +26,15 @@ public class RemoveMvcTests {
     private MockMvc mvc;
 
     @Autowired
-    StoreRepository storeRepository;
+    StoreServiceImpl storeService;
 
     final String STRING_OK = "{\"name\":\"igor\"}";
     final String STRING_NO_DATA = "{}";
 
     @Test
     public void removeOK() throws Exception {
-        storeRepository.deleteAll();
-        storeRepository.save(new Store("igor", 23));
+        storeService.deleteAll();
+        storeService.save(new Store("igor", 23));
 
         mvc.perform(post("/remove")
                         .content(STRING_OK)
@@ -56,7 +56,7 @@ public class RemoveMvcTests {
 
     @Test
     public void removeNothingToDelete() throws Exception {
-        storeRepository.deleteAll();
+        storeService.deleteAll();
 
         mvc.perform(post("/remove")
                         .content(STRING_OK)

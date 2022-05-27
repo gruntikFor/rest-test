@@ -82,3 +82,4 @@
 | 7    | NO_SECOND_NUMBER  | THERE IS NO SECOND NAME             |
 | 8    | NOT_NUMBER_FIRST  | THE FIRST IS NOT A NUMBER           |
 | 9    | NOT_NUMBER_SECOND | THE SECOND IS NOT A NUMBER          |
+| 10   | DELETE_ERROR      | DELETE_ERROR                        |

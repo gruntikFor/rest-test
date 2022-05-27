@@ -13,10 +13,10 @@ import java.util.Map;
 public class MainService {
 
     CustomValidator customValidator;
-    StoreService storeService;
+    StoreServiceImpl storeService;
 
     @Autowired
-    public MainService(CustomValidator customValidator, StoreService storeService) {
+    public MainService(CustomValidator customValidator, StoreServiceImpl storeService) {
         this.customValidator = customValidator;
         this.storeService = storeService;
     }
@@ -34,8 +34,10 @@ public class MainService {
         Map<Object, Object> response = customValidator.validRemove(data);
 
         if (response.get("code").equals(ResponseStatus.OK.getValue())) {
-            //add error
-            storeService.deleteByName(data.get("name"));
+            int result = storeService.deleteByName(data.get("name"));
+            if (result < 1) {
+                response = CustomValidator.combineErrors(ResponseStatus.DELETE_ERROR);
+            }
         }
         return response;
     }

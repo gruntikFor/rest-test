@@ -10,7 +10,8 @@ public enum ResponseStatus {
     NO_FIRST_NUMBER(6, "THERE IS NO FIRST NAME"),
     NO_SECOND_NUMBER(7, "THERE IS NO SECOND NAME"),
     NOT_NUMBER_FIRST(8, "THE FIRST IS NOT A NUMBER"),
-    NOT_NUMBER_SECOND(9, "THE SECOND IS NOT A NUMBER");
+    NOT_NUMBER_SECOND(9, "THE SECOND IS NOT A NUMBER"),
+    DELETE_ERROR(10, "DELETE ERROR");
 
     private final int value;
     private final String description;
